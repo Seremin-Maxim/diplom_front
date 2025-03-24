@@ -1,19 +1,21 @@
-FROM node:16-alpine AS build
+FROM node:20-alpine AS build
 
+# Настройка кэширования npm
+ENV NPM_CONFIG_CACHE=/npm_cache
 WORKDIR /app
 
 # Копируем файлы package.json и package-lock.json для кэширования
 COPY package*.json ./
 
-# Устанавливаем зависимости с кэшированием
-RUN npm ci --only=production
+# Устанавливаем зависимости и обновляем package-lock.json
+RUN npm install --prefer-offline --no-audit --progress=false
 
-# Копируем исходный код
+# Копируем только необходимые файлы для сборки
 COPY public ./public
 COPY src ./src
 
 # Собираем приложение с оптимизациями
-RUN npm run build
+RUN NODE_ENV=production npm run build
 
 # Используем оптимизированный nginx для раздачи статических файлов
 FROM nginx:alpine
@@ -26,7 +28,6 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Оптимизация Nginx
 RUN rm /etc/nginx/conf.d/default.conf.default || true \
-    && rm -rf /usr/share/nginx/html/index.html \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
