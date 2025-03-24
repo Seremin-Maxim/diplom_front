@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { API } from '../config/api';
 import './Login.css';
 
 function Login() {
@@ -34,7 +35,7 @@ function Login() {
     setLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/signin', userData);
+      const response = await axios.post(API.AUTH.SIGNIN, userData);
       
       // Сохраняем токен в localStorage
       localStorage.setItem('token', response.data.token);

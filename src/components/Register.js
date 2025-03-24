@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API } from '../config/api';
 import './Register.css'; // Создайте этот файл для стилей
 
 function Register() {
@@ -28,7 +29,7 @@ function Register() {
         
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/auth/signup', 
+                API.AUTH.SIGNUP,
                 formData
             );
             console.log('Registration successful:', response.data);

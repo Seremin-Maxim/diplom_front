@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API } from '../config/api';
 import './UserProfile.css';
 
 function UserProfile() {
@@ -19,7 +20,7 @@ function UserProfile() {
 
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/users/profile', {
+        const response = await axios.get(API.USERS.PROFILE, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
