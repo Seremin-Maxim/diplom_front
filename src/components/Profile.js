@@ -8,7 +8,7 @@ import './Profile.css';
  * Компонент профиля пользователя
  * Отображает разный интерфейс в зависимости от роли пользователя (студент/преподаватель)
  */
-function UserProfile() {
+function Profile() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,6 +32,14 @@ function UserProfile() {
             'Authorization': `Bearer ${token}`
           }
         });
+        console.log('Полученные данные пользователя в Profile.js:', response.data);
+        console.log('Роль пользователя:', response.data.role);
+        console.log('Тип роли:', typeof response.data.role);
+        
+        // Проверяем данные из localStorage
+        const localUser = JSON.parse(localStorage.getItem('user') || '{}');
+        console.log('Данные пользователя из localStorage:', localUser);
+        console.log('Роль из localStorage:', localUser.role);
         
         setUserData(response.data);
         setLoading(false);
@@ -89,10 +97,10 @@ function UserProfile() {
     );
   }
 
-  console.log('Полученные данные пользователя:', userData);
-  
+  console.log('Проверка роли перед отображением:', userData?.role);
+
   // Отображение профиля студента
-  if (userData && (userData.role === 'USER')){
+  if (userData && (userData.role === 'USER' || userData.role === 'ROLE_USER')) {
     return (
       <div className="profile-container">
         <div className="profile-header">
@@ -260,4 +268,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default Profile;

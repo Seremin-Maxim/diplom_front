@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { API } from '../config/api';
 import './Login.css';
+import './AuthBackground.css';
 
 function Login() {
   const [userData, setUserData] = useState({
@@ -44,8 +45,11 @@ function Login() {
       localStorage.setItem('user', JSON.stringify({
         email: response.data.email,
         firstName: response.data.firstName,
-        lastName: response.data.lastName
+        lastName: response.data.lastName,
+        role: response.data.role
       }));
+      
+      console.log('Полученные данные пользователя при входе:', response.data);
       
       // Перенаправляем на страницу профиля
       navigate('/profile');
@@ -58,10 +62,25 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      {success && <div className="success-message">{success}</div>}
-      {error && <div className="error-message">{error}</div>}
+    <>
+      <div className="auth-background">
+        <div className="education-icons">
+          <div className="icon icon-book">📚</div>
+          <div className="icon icon-pencil">✏️</div>
+          <div className="icon icon-graduation">🎓</div>
+          <div className="icon icon-lightbulb">💡</div>
+          <div className="icon icon-computer">💻</div>
+        </div>
+      </div>
+      <div className="login-container">
+        <h2>Вход в аккаунт</h2>
+        {success && <div className="success-message">{success}</div>}
+        {error && <div className="error-message">{error}</div>}
+        
+        <div className="login-icon">
+          <span>👤</span>
+        </div>
+      
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -72,10 +91,11 @@ function Login() {
             value={userData.email}
             onChange={handleChange}
             required
+            placeholder="Введите ваш email"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Пароль</label>
           <input
             type="password"
             id="password"
@@ -83,16 +103,18 @@ function Login() {
             value={userData.password}
             onChange={handleChange}
             required
+            placeholder="Введите ваш пароль"
           />
         </div>
         <button type="submit" className="login-button" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? 'Вход...' : 'Войти'}
         </button>
       </form>
       <p className="register-link">
-        Don't have an account? <Link to="/register">Register</Link>
+        Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
       </p>
     </div>
+    </>
   );
 }
 

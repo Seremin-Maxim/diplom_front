@@ -1,0 +1,123 @@
+/* Общие стили для фона страниц авторизации */
+.auth-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Декоративные элементы фона */
+.auth-background::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
+  animation: float 15s ease-in-out infinite alternate;
+}
+
+.auth-background::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(33, 150, 243, 0.2) 0%, rgba(33, 150, 243, 0.1) 100%);
+  animation: float 12s ease-in-out infinite alternate-reverse;
+}
+
+/* Образовательные иконки на фоне */
+.education-icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  overflow: hidden;
+}
+
+.icon {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.5;
+  animation: fadeInOut 5s infinite alternate;
+}
+
+.icon-book {
+  top: 15%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.icon-pencil {
+  top: 25%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.icon-graduation {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.icon-lightbulb {
+  top: 40%;
+  right: 25%;
+  animation-delay: 3s;
+}
+
+.icon-computer {
+  bottom: 30%;
+  right: 10%;
+  animation-delay: 4s;
+}
+
+/* Анимации */
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .auth-background::before {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .auth-background::after {
+    width: 150px;
+    height: 150px;
+  }
+}
