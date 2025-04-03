@@ -1,0 +1,292 @@
+.test-details-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.test-details-header {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.test-title {
+  font-size: 28px;
+  color: #333;
+  margin: 0 0 15px 0;
+}
+
+.test-description {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.time-limit {
+  display: inline-block;
+  background-color: #f8f9fa;
+  color: #555;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-top: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.question-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.question-number {
+  font-weight: 600;
+  color: #4285f4;
+  font-size: 16px;
+}
+
+.question-type {
+  background-color: #e8f0fe;
+  color: #4285f4;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.question-text {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.answers-container {
+  margin-top: 15px;
+}
+
+.single-choice-answers,
+.multiple-choice-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.answer-option {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.answer-option:hover {
+  background-color: #f5f5f5;
+}
+
+.answer-option input[type="radio"],
+.answer-option input[type="checkbox"] {
+  margin-top: 3px;
+  margin-right: 12px;
+}
+
+.answer-text {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.text-answer textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.text-answer textarea:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+.test-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.submit-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #3367d6;
+}
+
+.submit-button:disabled {
+  background-color: #a5c7f7;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: #e8e8e8;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error-message {
+  text-align: center;
+  padding: 30px;
+  background-color: #fdecea;
+  color: #d32f2f;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+/* Стили для страницы результатов */
+.test-result {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.test-result h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.result-info {
+  margin: 30px 0;
+}
+
+.result-info h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.score {
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+.score-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #4285f4;
+}
+
+.pending-review {
+  font-size: 18px;
+  color: #f57c00;
+  background-color: #fff3e0;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.back-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.back-button:hover {
+  background-color: #3367d6;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+  .test-details-container {
+    padding: 15px;
+  }
+  
+  .test-details-header {
+    padding: 20px;
+  }
+  
+  .question-card {
+    padding: 20px;
+  }
+  
+  .question-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .test-actions {
+    flex-direction: column;
+  }
+  
+  .submit-button, .cancel-button {
+    width: 100%;
+  }
+}

@@ -43,6 +43,7 @@ function Login() {
       
       // Сохраняем данные пользователя
       localStorage.setItem('user', JSON.stringify({
+        id: response.data.id,
         email: response.data.email,
         firstName: response.data.firstName,
         lastName: response.data.lastName,

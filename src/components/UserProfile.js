@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API } from '../config/api';
+import TeacherCourses from './TeacherCourses';
 import './Profile.css';
 
 /**
@@ -13,6 +14,7 @@ function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('profile');
+  const [showCreateForm, setShowCreateForm] = useState(false);
   const navigate = useNavigate();
 
   // Получение данных пользователя при загрузке компонента
@@ -61,6 +63,14 @@ function UserProfile() {
   // Переключение между вкладками (для преподавателя)
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    // Сбрасываем форму создания курса при смене вкладки
+    setShowCreateForm(false);
+  };
+  
+  // Обработка нажатия на кнопку создания курса
+  const handleCreateCourseClick = () => {
+    console.log('Нажата кнопка создания курса в UserProfile');
+    setShowCreateForm(true);
   };
 
   // Отображение загрузки
@@ -233,14 +243,7 @@ function UserProfile() {
           </div>
         ) : (
           <div className="courses-container">
-            <div className="empty-courses">
-              <div className="empty-icon">📚</div>
-              <h2>У вас пока нет созданных курсов</h2>
-              <p>Создайте свой первый курс, чтобы начать обучение студентов</p>
-              <button className="create-course-button">
-                Создать курс
-              </button>
-            </div>
+            <TeacherCourses userData={userData} />
           </div>
         )}
       </div>

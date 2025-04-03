@@ -1,0 +1,258 @@
+.lesson-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.lesson-details-header {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-details-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #4285f4;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.profile-link {
+  background-color: #4285f4;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.profile-link:hover {
+  background-color: #3367d6;
+}
+
+.lesson-title {
+  font-size: 28px;
+  color: #333;
+  margin: 0 0 15px 0;
+}
+
+.lesson-meta {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.complete-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.complete-button:hover {
+  background-color: #388e3c;
+}
+
+.complete-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.completed-badge {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.lesson-content-section, .lesson-tests-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-content-section h2, .lesson-tests-section h2 {
+  font-size: 22px;
+  color: #333;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.lesson-content {
+  color: #333;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.lesson-content h1, .lesson-content h2, .lesson-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.lesson-content p {
+  margin-bottom: 1em;
+}
+
+.lesson-content ul, .lesson-content ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.lesson-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+.lesson-content pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.lesson-content code {
+  background-color: #f5f5f5;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.no-content-message {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.tests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.test-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.test-item:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.test-info {
+  flex-grow: 1;
+}
+
+.test-title {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.test-description {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.test-score {
+  color: #4285f4;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #e8f0fe;
+  border-radius: 4px;
+}
+
+.take-test-button {
+  background-color: #4285f4;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+  margin-left: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.take-test-button:hover {
+  background-color: #3367d6;
+}
+
+.no-tests-message {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.take-test-button:hover {
+  background-color: #3367d6;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 20px 0;
+  text-align: center;
+}
