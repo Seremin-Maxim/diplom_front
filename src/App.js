@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
-import UserProfile from './components/UserProfile';
+import Profile from './components/Profile';
 import CourseEditor from './components/CourseEditor';
 import ProtectedRoute from './components/ProtectedRoute';
 import TeacherProtectedRoute from './components/TeacherProtectedRoute';
 import Home from './components/Home';
-import CourseDetails from './components/CourseDetails';
-import LessonDetails from './components/LessonDetails';
-import TestDetails from './components/TestDetails';
+import CourseDetails from './components/CourseDetailsTmp';
+import LessonDetails from './components/LessonDetailsTmp';
+import TestDetails from './components/TestDetailsTmp';
 import './App.css';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             path="/profile" 
             element={
               <ProtectedRoute>
-                <UserProfile />
+                <Profile />
               </ProtectedRoute>
             } 
           />

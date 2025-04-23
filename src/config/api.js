@@ -69,6 +69,12 @@ export const API = {
     BY_TEST_ID: (testId) => `${API_BASE_URL}/api/submissions/test/${testId}`,
     BY_STUDENT_ID: (studentId) => `${API_BASE_URL}/api/submissions/student/${studentId}`,
   },
+  STATISTICS: {
+    COURSE: (courseId) => `${API_BASE_URL}/api/statistics/course/${courseId}`,
+    TEACHER: (teacherId) => `${API_BASE_URL}/api/statistics/teacher/${teacherId}`,
+    TEACHER_ME: `${API_BASE_URL}/api/statistics/teacher/me`,
+    STUDENT_ME: `${API_BASE_URL}/api/statistics/student/me`,
+  },
 };
 
 export default API;

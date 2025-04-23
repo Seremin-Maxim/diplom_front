@@ -1,12 +1,49 @@
 /* Основной контейнер профиля */
 .profile-container {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 20px;
+  max-width: 100%;
+  margin: 5px auto;
+  padding: 0 5px;
   transition: all 0.3s ease;
 }
 
+/* Верхний блок с аватаром и основной информацией */
+.profile-main-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.profile-main-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.profile-main-name {
+  font-size: 18px;
+  color: #444;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.profile-main-role {
+  font-size: 15px;
+  color: #7b7b7b;
+  margin-bottom: 2px;
+}
+
+.profile-main-email {
+  font-size: 14px;
+  color: #a2a2a2;
+}
+
+/* Удаляем стили для profile-header, если не используется */
+.profile-header, .teacher-header { display: none; }
+
 /* Заголовок профиля */
+/*
 .profile-header {
   display: flex;
   align-items: center;
@@ -22,8 +59,8 @@
 
 @media (min-width: 768px) {
   .profile-header {
-    /* backdrop-filter: blur(10px); */
-    /* -webkit-backdrop-filter: blur(10px); */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 }
 
@@ -61,6 +98,7 @@
   font-size: 24px;
   color: #333;
 }
+*/
 
 /* Аватар пользователя */
 .profile-avatar {
@@ -176,7 +214,7 @@
 .student-stats,
 .teacher-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 15px;
   margin-bottom: 25px;
   width: 100%;
@@ -218,30 +256,7 @@
 }
 
 /* Кнопка выхода */
-.logout-button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #f44336, #d32f2f);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 8px rgba(211, 47, 47, 0.3);
-}
-
-.logout-button:hover {
-  background: linear-gradient(135deg, #e53935, #c62828);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(211, 47, 47, 0.4);
-}
-
-.logout-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 5px rgba(211, 47, 47, 0.4);
-}
+.logout-button { display: none !important; }
 
 /* Вкладки для преподавателя */
 .tabs-container {

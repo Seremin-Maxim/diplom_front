@@ -1,0 +1,545 @@
+/* Основные стили для компонента LessonDetailsTmp */
+.lesson-tmp-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Минималистичная кнопка возврата */
+.lesson-tmp-back-link-minimal {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #3f51b5;
+  font-size: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-tmp-back-link-minimal:hover {
+  background-color: rgba(63, 81, 181, 0.08);
+}
+
+/* Обертка для основного контента */
+.lesson-tmp-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Заголовок урока */
+.lesson-tmp-header {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 0 30px 0 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  position: relative;
+}
+
+/* Кнопка назад в заголовке */
+.lesson-tmp-header-back-button {
+  background-color: rgba(200, 200, 200, 0.5);
+  border: none;
+  color: #333;
+  font-size: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 60px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  margin-right: 20px;
+}
+
+.lesson-tmp-header-back-button:hover {
+  background-color: rgba(63, 81, 181, 0.2);
+  color: #3f51b5;
+}
+
+.lesson-tmp-header-content {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px 0;
+}
+
+/* Заголовок урока */
+.lesson-tmp-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: #1a237e;
+}
+
+/* Индикатор завершения урока в заголовке */
+.lesson-tmp-completed-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.lesson-tmp-completed-icon {
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.lesson-tmp-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.lesson-tmp-completed {
+  display: flex;
+  align-items: center;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.lesson-tmp-complete-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.lesson-tmp-complete-button:hover {
+  background-color: #43a047;
+}
+
+.lesson-tmp-complete-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* Основное содержимое */
+.lesson-tmp-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .lesson-tmp-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Основная колонка */
+.lesson-tmp-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Секция содержания урока */
+.lesson-tmp-content-section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-tmp-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: #1a237e;
+  display: flex;
+  align-items: center;
+}
+
+.lesson-tmp-section-icon {
+  margin-right: 12px;
+  font-size: 24px;
+}
+
+.lesson-tmp-content-text {
+  color: #333;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.lesson-tmp-content-text h1,
+.lesson-tmp-content-text h2,
+.lesson-tmp-content-text h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #1a237e;
+}
+
+.lesson-tmp-content-text p {
+  margin-bottom: 1em;
+}
+
+.lesson-tmp-content-text ul,
+.lesson-tmp-content-text ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.lesson-tmp-content-text img {
+  max-width: 100%;
+  height: auto;
+  margin: 1em 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-tmp-content-text pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: 'Courier New', monospace;
+}
+
+.lesson-tmp-content-text code {
+  background-color: #f5f5f5;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+.lesson-tmp-no-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  color: #757575;
+  flex-grow: 1;
+}
+
+.lesson-tmp-no-content-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* Секция тестов */
+.lesson-tmp-tests-section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-tmp-tests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lesson-tmp-test-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f5f7fa;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+}
+
+.lesson-tmp-test-card:hover {
+  background-color: #eef2f7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.lesson-tmp-test-card.active {
+  border-left-color: #3f51b5;
+  background-color: #eef2f7;
+}
+
+.lesson-tmp-test-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.lesson-tmp-test-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  color: #333;
+}
+
+.lesson-tmp-test-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.lesson-tmp-test-score {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.lesson-tmp-score-icon {
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.lesson-tmp-test-button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 16px;
+  white-space: nowrap;
+}
+
+.lesson-tmp-test-button:hover {
+  background-color: #303f9f;
+}
+
+.lesson-tmp-no-tests {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  color: #757575;
+}
+
+.lesson-tmp-no-tests-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* Боковая панель */
+.lesson-tmp-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: flex-start;
+}
+
+.lesson-tmp-sidebar-section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-tmp-sidebar-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #1a237e;
+}
+
+.lesson-tmp-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.lesson-tmp-sidebar-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.lesson-tmp-sidebar-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.lesson-tmp-sidebar-cta {
+  background-color: #e8f5e9;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.lesson-tmp-sidebar-cta p {
+  margin: 0 0 16px 0;
+  color: #2e7d32;
+  font-size: 15px;
+}
+
+.lesson-tmp-sidebar-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.lesson-tmp-sidebar-button:hover {
+  background-color: #43a047;
+}
+
+.lesson-tmp-sidebar-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* Список тестов в боковой панели */
+.lesson-tmp-sidebar-tests {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.lesson-tmp-sidebar-tests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson-tmp-sidebar-test-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #f5f7fa;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.lesson-tmp-sidebar-test-item:hover {
+  background-color: #eef2f7;
+}
+
+.lesson-tmp-sidebar-test-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.lesson-tmp-sidebar-test-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lesson-tmp-sidebar-test-score {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+/* Загрузка и ошибки */
+.lesson-tmp-loading,
+.lesson-tmp-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.lesson-tmp-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3f51b5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.lesson-tmp-error-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f44336;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.lesson-tmp-error p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.lesson-tmp-button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.lesson-tmp-button:hover {
+  background-color: #303f9f;
+}

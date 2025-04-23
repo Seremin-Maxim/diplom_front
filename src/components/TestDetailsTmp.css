@@ -1,0 +1,780 @@
+/* Основные стили для компонента TestDetailsTmp */
+.test-tmp-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Минималистичная кнопка возврата */
+.test-tmp-back-link-minimal {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #3f51b5;
+  font-size: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.test-tmp-back-link-minimal:hover {
+  background-color: rgba(63, 81, 181, 0.08);
+}
+
+/* Обертка для основного контента */
+.test-tmp-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Заголовок теста */
+.test-tmp-header {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 0 20px 0 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  position: relative;
+}
+
+/* Кнопка назад в заголовке */
+.test-tmp-header-back-button {
+  background-color: rgba(200, 200, 200, 0.5); /* Серый полупрозрачный */
+  border: none;
+  color: #333;
+  font-size: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 60px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  margin-right: 20px;
+}
+
+.test-tmp-header-back-button:hover {
+  background-color: rgba(63, 81, 181, 0.2); /* Блекло-индиго при наведении */
+  color: #3f51b5;
+}
+
+.test-tmp-header-content {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px 0;
+}
+
+.test-tmp-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1a237e;
+}
+
+.test-tmp-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.test-tmp-time-limit {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f5f7fa;
+  color: #555;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: 1px solid #e0e0e0;
+}
+
+.test-tmp-time-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Основное содержимое */
+.test-tmp-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .test-tmp-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Основная колонка */
+.test-tmp-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Прогресс вопросов */
+.test-tmp-questions-progress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.test-tmp-question-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f5f7fa;
+  border: 2px solid #e0e0e0;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.test-tmp-question-dot:hover {
+  background-color: #e8eaf6;
+  border-color: #3f51b5;
+}
+
+.test-tmp-question-dot.active {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+  color: white;
+}
+
+.test-tmp-question-dot.answered {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.test-tmp-question-dot.active.answered {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: white;
+}
+
+/* Карточка вопроса */
+.test-tmp-question-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.test-tmp-question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.test-tmp-question-number {
+  font-weight: 600;
+  color: #3f51b5;
+  font-size: 16px;
+}
+
+.test-tmp-question-type {
+  background-color: #e8f0fe;
+  color: #3f51b5;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.test-tmp-question-text {
+  font-size: 20px;
+  color: #333;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+/* Контейнер для ответов */
+.test-tmp-answers-container {
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+.test-tmp-single-choice,
+.test-tmp-multiple-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.test-tmp-answer-option {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: #f5f7fa;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.test-tmp-answer-option:hover {
+  background-color: #e8eaf6;
+  transform: translateY(-2px);
+}
+
+.test-tmp-answer-option.selected {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.test-tmp-radio,
+.test-tmp-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.test-tmp-radio-custom,
+.test-tmp-checkbox-custom {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.test-tmp-checkbox-custom {
+  border-radius: 4px;
+}
+
+.test-tmp-answer-option.selected .test-tmp-radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #4caf50;
+  border-radius: 50%;
+}
+
+.test-tmp-answer-option.selected .test-tmp-checkbox-custom::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4caf50;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.test-tmp-answer-text {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Текстовый ответ */
+.test-tmp-text-answer {
+  width: 100%;
+}
+
+.test-tmp-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.3s;
+  min-height: 150px;
+  box-sizing: border-box;
+}
+
+.test-tmp-textarea:focus {
+  outline: none;
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+/* Навигация по вопросам */
+.test-tmp-question-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.test-tmp-prev-button,
+.test-tmp-next-button,
+.test-tmp-submit-button {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.test-tmp-prev-button {
+  background-color: #f5f7fa;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.test-tmp-prev-button:hover {
+  background-color: #e8eaf6;
+}
+
+.test-tmp-prev-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.test-tmp-next-button {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.test-tmp-next-button:hover {
+  background-color: #303f9f;
+}
+
+.test-tmp-submit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.test-tmp-submit-button:hover {
+  background-color: #388e3c;
+}
+
+.test-tmp-submit-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* Боковая панель */
+.test-tmp-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: flex-start;
+}
+
+.test-tmp-sidebar-section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.test-tmp-sidebar-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #1a237e;
+}
+
+.test-tmp-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.test-tmp-sidebar-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.test-tmp-sidebar-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* Прогресс в боковой панели */
+.test-tmp-sidebar-progress {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.test-tmp-progress-bar {
+  height: 8px;
+  background-color: #f5f7fa;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.test-tmp-progress-fill {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.test-tmp-progress-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.test-tmp-progress-answered,
+.test-tmp-progress-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.test-tmp-progress-number {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.test-tmp-progress-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Кнопки действий в боковой панели */
+.test-tmp-sidebar-actions {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.test-tmp-sidebar-submit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.test-tmp-sidebar-submit:hover {
+  background-color: #388e3c;
+}
+
+.test-tmp-sidebar-submit:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.test-tmp-sidebar-cancel {
+  background-color: #f5f7fa;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.test-tmp-sidebar-cancel:hover {
+  background-color: #e8eaf6;
+}
+
+/* Результаты теста */
+.test-tmp-result-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.test-tmp-result {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.test-tmp-result-header {
+  margin-bottom: 30px;
+}
+
+.test-tmp-result-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a237e;
+  margin: 0 0 10px 0;
+}
+
+.test-tmp-result-subtitle {
+  font-size: 20px;
+  color: #555;
+  margin: 0;
+}
+
+.test-tmp-result-content {
+  margin: 40px 0;
+}
+
+.test-tmp-score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #f5f7fa;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.test-tmp-score-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.test-tmp-score-details {
+  text-align: center;
+}
+
+.test-tmp-score-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.test-tmp-score-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #4caf50;
+}
+
+.test-tmp-score-max {
+  font-size: 24px;
+  color: #666;
+  margin-left: 8px;
+}
+
+.test-tmp-score-label {
+  font-size: 16px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.test-tmp-pending-review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #fff3e0;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.test-tmp-pending-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #f57c00;
+}
+
+.test-tmp-pending-review p {
+  font-size: 18px;
+  color: #f57c00;
+  margin: 0;
+}
+
+.test-tmp-result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.test-tmp-result-lesson,
+.test-tmp-result-questions {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.test-tmp-result-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.test-tmp-result-value {
+  color: #333;
+}
+
+.test-tmp-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.test-tmp-result-button {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.test-tmp-lesson-button {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.test-tmp-lesson-button:hover {
+  background-color: #303f9f;
+}
+
+.test-tmp-home-button {
+  background-color: #f5f7fa;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.test-tmp-home-button:hover {
+  background-color: #e8eaf6;
+}
+
+/* Загрузка и ошибки */
+.test-tmp-loading,
+.test-tmp-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.test-tmp-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3f51b5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.test-tmp-error-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f44336;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.test-tmp-error p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.test-tmp-button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.test-tmp-button:hover {
+  background-color: #303f9f;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+  .test-tmp-container {
+    padding: 15px;
+  }
+  
+  .test-tmp-header {
+    padding: 20px;
+  }
+  
+  .test-tmp-question-card {
+    padding: 20px;
+  }
+  
+  .test-tmp-question-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .test-tmp-result-actions {
+    flex-direction: column;
+  }
+  
+  .test-tmp-result-button {
+    width: 100%;
+  }
+}
