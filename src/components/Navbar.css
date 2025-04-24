@@ -328,6 +328,230 @@
   background-color: rgba(255, 59, 48, 0.05);
 }
 
+/* Стили для поиска */
+.navbar-search {
+  position: relative;
+  width: 40%;
+  max-width: 500px;
+  margin: 0 20px;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
+  background-color: white;
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.search-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #3a7bd5;
+  border-radius: 50%;
+  position: relative;
+}
+
+.search-icon::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background-color: #3a7bd5;
+  transform: rotate(-45deg);
+  bottom: -5px;
+  right: -2px;
+}
+
+.search-button:hover .search-icon {
+  border-color: #00d2ff;
+}
+
+.search-button:hover .search-icon::after {
+  background-color: #00d2ff;
+}
+
+/* Выпадающий список результатов поиска */
+.search-results {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  max-height: 400px;
+}
+
+.search-results-header {
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.search-results-header span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.search-results-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: rgba(58, 123, 213, 0.05);
+}
+
+.search-result-icon {
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.search-result-content {
+  flex: 1;
+}
+
+.search-result-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.search-result-author {
+  font-size: 12px;
+  color: #666;
+}
+
+.search-results-footer {
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.view-all-results {
+  font-size: 14px;
+  color: #3a7bd5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.view-all-results:hover {
+  color: #00d2ff;
+  text-decoration: underline;
+}
+
+/* Состояние загрузки */
+.search-loading {
+  padding: 20px;
+  text-align: center;
+}
+
+.search-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3a7bd5;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.search-loading p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Сообщение об отсутствии результатов */
+.no-search-results {
+  padding: 20px;
+  text-align: center;
+}
+
+.no-search-results p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Адаптивность для поиска */
+@media (max-width: 992px) {
+  .navbar-search {
+    width: 35%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+  }
+  
+  .navbar-search {
+    order: 3;
+    width: 100%;
+    margin: 10px 0 0;
+  }
+  
+  .navbar-right {
+    margin-left: auto;
+  }
+}
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .navbar-container {

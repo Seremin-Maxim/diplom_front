@@ -38,17 +38,17 @@ function App() {
           <Route 
             path="/home" 
             element={
-              <ProtectedRoute>
+              //<ProtectedRoute>
                 <Home />
-              </ProtectedRoute>
+              //</ProtectedRoute>
             } 
           />
           <Route 
             path="/courses/:courseId" 
             element={
-              <ProtectedRoute>
+              //<ProtectedRoute>
                 <CourseDetails />
-              </ProtectedRoute>
+              //</ProtectedRoute>
             } 
           />
           <Route 

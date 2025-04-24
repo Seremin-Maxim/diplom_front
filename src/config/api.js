@@ -15,6 +15,7 @@ export const API = {
     BY_ID: (id) => `${API_BASE_URL}/api/courses/${id}`,
     TEACHER: `${API_BASE_URL}/api/courses/teacher`,
     PUBLIC: `${API_BASE_URL}/api/courses/public`,
+    SEARCH: (query) => `${API_BASE_URL}/api/courses/search?query=${encodeURIComponent(query)}`,
   },
   LESSONS: {
     BASE: `${API_BASE_URL}/api/lessons`,
