@@ -2,255 +2,195 @@
 .lesson-tmp-container {
   width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 20px;
   font-family: 'Roboto', 'Arial', sans-serif;
   color: #333;
   box-sizing: border-box;
   position: relative;
 }
 
-/* Минималистичная кнопка возврата */
-.lesson-tmp-back-link-minimal {
-  position: absolute;
-  top: 10px;
-  left: 20px;
+/* Кнопка возврата в стиле курса */
+.lesson-tmp-header-back-button {
   background: none;
   border: none;
-  color: #3f51b5;
-  font-size: 28px;
+  color: #1a237e;
+  font-size: 24px;
   font-weight: 500;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+  padding: 0 15px;
   transition: background-color 0.2s;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.lesson-tmp-back-link-minimal:hover {
-  background-color: rgba(63, 81, 181, 0.08);
+.lesson-tmp-header-back-button:hover {
+  background-color: rgba(26, 35, 126, 0.08);
 }
 
 /* Обертка для основного контента */
 .lesson-tmp-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+  background-color: transparent;
+}
+
+/* Стили для отображения необработанного контента */
+.lesson-tmp-raw-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.lesson-tmp-raw-content p {
+  margin-bottom: 16px;
+}
+
+.lesson-tmp-raw-content h1, 
+.lesson-tmp-raw-content h2, 
+.lesson-tmp-raw-content h3, 
+.lesson-tmp-raw-content h4, 
+.lesson-tmp-raw-content h5, 
+.lesson-tmp-raw-content h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.lesson-tmp-raw-content ul, 
+.lesson-tmp-raw-content ol {
+  margin-left: 20px;
+  margin-bottom: 16px;
+}
+
+.lesson-tmp-raw-content pre {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+  font-family: 'Courier New', monospace;
 }
 
 /* Заголовок урока */
 .lesson-tmp-header {
   background-color: #fff;
-  border-radius: 12px;
-  padding: 0 30px 0 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  flex-wrap: nowrap;
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-left: 5px solid #4a90e2;
+}
+
+.lesson-tmp-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
+  z-index: 0;
+}
+
+.lesson-tmp-header-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.lesson-tmp-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1a237e;
 }
 
 /* Кнопка назад в заголовке */
 .lesson-tmp-header-back-button {
-  background-color: rgba(200, 200, 200, 0.5);
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background-color: #f5f7fa;
   border: none;
-  color: #333;
-  font-size: 28px;
-  font-weight: 500;
-  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  width: 60px;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-  margin-right: 20px;
+  font-size: 1.5rem;
+  color: #4a90e2;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
 }
 
 .lesson-tmp-header-back-button:hover {
-  background-color: rgba(63, 81, 181, 0.2);
-  color: #3f51b5;
+  background-color: #e6eef7;
+  transform: translateX(-3px);
 }
 
-.lesson-tmp-header-content {
-  flex: 1;
-  min-width: 300px;
-  padding: 20px 0;
-}
-
-/* Заголовок урока */
-.lesson-tmp-title {
-  font-size: 32px;
-  font-weight: 700;
-  margin: 0 0 5px 0;
-  color: #1a237e;
-}
-
-/* Индикатор завершения урока в заголовке */
-.lesson-tmp-completed-badge {
-  display: inline-flex;
-  align-items: center;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.lesson-tmp-completed-icon {
-  margin-right: 6px;
-  font-size: 16px;
-}
-
-.lesson-tmp-meta {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.lesson-tmp-completed {
-  display: flex;
-  align-items: center;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 500;
-}
-
-.lesson-tmp-complete-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.lesson-tmp-complete-button:hover {
-  background-color: #43a047;
-}
-
-.lesson-tmp-complete-button:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-
-/* Основное содержимое */
+/* Обертка для основного контента */
 .lesson-tmp-content {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 992px) {
   .lesson-tmp-content {
-    grid-template-columns: 1fr;
+    flex-direction: row;
+  }
+  
+  .lesson-tmp-main {
+    flex: 1;
+  }
+  
+  .lesson-tmp-sidebar {
+    width: 320px;
+    margin-top: 0;
   }
 }
 
-/* Основная колонка */
 .lesson-tmp-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
-/* Секция содержания урока */
+/* Основное содержимое */
 .lesson-tmp-content-section {
   background-color: #fff;
   border-radius: 12px;
-  padding: 30px;
+  padding: 24px 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
 }
 
 .lesson-tmp-section-title {
-  font-size: 24px;
+  font-size: 1.5rem;
+  margin: 0 0 20px 0;
+  color: #2c3e50;
   font-weight: 600;
-  margin: 0 0 24px 0;
-  color: #1a237e;
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
 }
 
 .lesson-tmp-section-icon {
-  margin-right: 12px;
-  font-size: 24px;
-}
-
-.lesson-tmp-content-text {
-  color: #333;
-  line-height: 1.6;
-  font-size: 16px;
-}
-
-.lesson-tmp-content-text h1,
-.lesson-tmp-content-text h2,
-.lesson-tmp-content-text h3 {
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  color: #1a237e;
-}
-
-.lesson-tmp-content-text p {
-  margin-bottom: 1em;
-}
-
-.lesson-tmp-content-text ul,
-.lesson-tmp-content-text ol {
-  margin-bottom: 1em;
-  padding-left: 2em;
-}
-
-.lesson-tmp-content-text img {
-  max-width: 100%;
-  height: auto;
-  margin: 1em 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.lesson-tmp-content-text pre {
-  background-color: #f5f5f5;
-  padding: 15px;
-  border-radius: 8px;
-  overflow-x: auto;
-  margin: 1em 0;
-  font-family: 'Courier New', monospace;
-}
-
-.lesson-tmp-content-text code {
-  background-color: #f5f5f5;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-family: 'Courier New', monospace;
-}
-
-.lesson-tmp-no-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 0;
-  color: #757575;
-  flex-grow: 1;
-}
-
-.lesson-tmp-no-content-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
+  font-size: 1.5rem;
 }
 
 /* Секция тестов */
@@ -356,10 +296,7 @@
 
 /* Боковая панель */
 .lesson-tmp-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-self: flex-start;
+  margin-top: 0px;
 }
 
 .lesson-tmp-sidebar-section {
@@ -367,119 +304,249 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  flex-grow: 0;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 24px;
 }
 
 .lesson-tmp-sidebar-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 1.25rem;
   margin: 0 0 16px 0;
-  color: #1a237e;
+  color: #2c3e50;
+  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
 }
 
 .lesson-tmp-sidebar-content {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  justify-content: flex-start;
+  gap: 14px;
 }
 
 .lesson-tmp-sidebar-item {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  margin-bottom: 12px;
+  font-size: 15px;
   color: #555;
 }
 
-.lesson-tmp-sidebar-icon {
-  margin-right: 10px;
-  font-size: 16px;
+.lesson-tmp-completed-item {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #2e7d32;
+  font-weight: 500;
 }
 
-.lesson-tmp-sidebar-cta {
-  background-color: #e8f5e9;
-  border-radius: 12px;
-  padding: 24px;
+.lesson-tmp-sidebar-icon {
+  font-size: 1.25rem;
+  color: #4a90e2;
+  min-width: 24px;
   text-align: center;
 }
 
-.lesson-tmp-sidebar-cta p {
-  margin: 0 0 16px 0;
-  color: #2e7d32;
-  font-size: 15px;
-}
-
-.lesson-tmp-sidebar-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
-}
-
-.lesson-tmp-sidebar-button:hover {
-  background-color: #43a047;
-}
-
-.lesson-tmp-sidebar-button:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-
-/* Список тестов в боковой панели */
-.lesson-tmp-sidebar-tests {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.lesson-tmp-sidebar-tests-list {
+/* Стили для навигации между уроками */
+.lesson-tmp-navigation {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 10px;
 }
 
-.lesson-tmp-sidebar-test-item {
+.lesson-tmp-nav-button {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  border-radius: 6px;
+  gap: 10px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.lesson-tmp-nav-button:hover {
   background-color: #f5f7fa;
-  font-size: 14px;
-  transition: background-color 0.2s;
+  border-color: #4a90e2;
+  color: #4a90e2;
 }
 
-.lesson-tmp-sidebar-test-item:hover {
-  background-color: #eef2f7;
+.lesson-tmp-nav-button.prev {
+  padding-left: 15px;
 }
 
-.lesson-tmp-sidebar-test-icon {
-  margin-right: 10px;
-  font-size: 16px;
+.lesson-tmp-nav-button.next {
+  padding-right: 15px;
 }
 
-.lesson-tmp-sidebar-test-name {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.lesson-tmp-nav-icon {
+  font-size: 1.2rem;
 }
 
-.lesson-tmp-sidebar-test-score {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  padding: 2px 8px;
-  border-radius: 12px;
+.lesson-tmp-nav-text {
   font-weight: 500;
-  margin-left: 8px;
+}
+
+/* Стили для отображения форматированного контента Editor.js */
+.lesson-tmp-editor-content {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  line-height: 1.7;
+  color: #333;
+  padding: 0;
+}
+
+/* Стили для заголовков */
+.lesson-tmp-header-block {
+  margin-top: 1.8em;
+  margin-bottom: 1em;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.3;
+}
+
+.lesson-tmp-header-block h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.lesson-tmp-header-block h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.lesson-tmp-header-block h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.lesson-tmp-header-block h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Стили для параграфов */
+.lesson-tmp-paragraph-block {
+  margin-bottom: 1.5em;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Стили для выделенного текста */
+.lesson-tmp-paragraph-block mark {
+  background-color: rgba(245, 235, 111, 0.35);
+  padding: 2px 0;
+  border-radius: 2px;
+}
+
+.lesson-tmp-paragraph-block code {
+  font-family: 'Courier New', monospace;
+  background-color: #f1f1f1;
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #e83e8c;
+}
+
+/* Стили для списков */
+.lesson-tmp-list-block {
+  margin-bottom: 1.5em;
+  padding-left: 2.5em;
+}
+
+.lesson-tmp-list-block li {
+  margin-bottom: 0.7em;
+  line-height: 1.6;
+}
+
+.lesson-tmp-list-block ol {
+  list-style-type: decimal;
+}
+
+.lesson-tmp-list-block ul {
+  list-style-type: disc;
+}
+
+/* Стили для блока кода */
+.lesson-tmp-code-block {
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  margin-bottom: 1.8em;
+  overflow: auto;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-tmp-code-block pre {
+  padding: 20px;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.lesson-tmp-code-block code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #f8f8f2;
+  display: block;
+  white-space: pre;
+}
+
+/* Стили для цитат */
+.lesson-tmp-quote-block {
+  border-left: 4px solid #4a90e2;
+  padding: 0.8em 1.2em;
+  margin-bottom: 1.8em;
+  background-color: #f9f9f9;
+  font-style: italic;
+  color: #555;
+  border-radius: 0 8px 8px 0;
+}
+
+.lesson-tmp-quote-block cite {
+  display: block;
+  font-size: 0.9em;
+  margin-top: 0.8em;
+  text-align: right;
+  color: #777;
+}
+
+/* Стили для разделителя */
+.lesson-tmp-delimiter {
+  text-align: center;
+  margin: 2.5em auto;
+  border: none;
+  height: 1px;
+  background-color: #eee;
+  position: relative;
+  width: 70%;
+}
+
+.lesson-tmp-delimiter::before {
+  content: "•••";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 0 15px;
+  color: #888;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+}
+
+/* Стили для неподдерживаемых блоков */
+.lesson-tmp-unknown-block {
+  padding: 10px;
+  background-color: #f8f8f8;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  color: #999;
+  margin-bottom: 1.2em;
+  font-size: 0.9em;
 }
 
 /* Загрузка и ошибки */

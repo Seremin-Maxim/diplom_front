@@ -1,8 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { API } from '../config/api';
 import LessonTests from './LessonTests';
 import './CourseLessons.css';
+
+// Импорт Editor.js и его плагинов
+import EditorJS from '@editorjs/editorjs';
+import Header from '@editorjs/header';
+import List from '@editorjs/list';
+import Code from '@editorjs/code';
+import Paragraph from '@editorjs/paragraph';
+import Marker from '@editorjs/marker';
+import InlineCode from '@editorjs/inline-code';
+import Delimiter from '@editorjs/delimiter';
+import Quote from '@editorjs/quote';
 
 /**
  * Компонент для отображения уроков курса
@@ -24,6 +35,43 @@ function CourseLessons({ course, onBack }) {
     return text.substring(0, maxLength - 3) + '...';
   };
   
+  /**
+   * Преобразование JSON-контента в текст для предпросмотра
+   * @param {string} jsonContent - JSON-строка с контентом
+   * @returns {string} - текст для предпросмотра
+   */
+  const getContentPreview = (jsonContent) => {
+    if (!jsonContent) return '';
+    
+    try {
+      const content = JSON.parse(jsonContent);
+      if (!content.blocks || content.blocks.length === 0) return '';
+      
+      // Собираем текст из всех блоков
+      let plainText = '';
+      content.blocks.forEach(block => {
+        if (block.type === 'paragraph') {
+          plainText += block.data.text + ' ';
+        } else if (block.type === 'header') {
+          plainText += block.data.text + ' ';
+        } else if (block.type === 'list') {
+          block.data.items.forEach(item => {
+            plainText += '• ' + item + ' ';
+          });
+        } else if (block.type === 'code') {
+          plainText += '[Код] ';
+        } else if (block.type === 'quote') {
+          plainText += '"' + block.data.text + '" ';
+        }
+      });
+      
+      return truncateContent(plainText.trim(), 150);
+    } catch (err) {
+      // Если не удалось распарсить JSON, возвращаем исходный текст
+      return truncateContent(jsonContent, 150);
+    }
+  };
+  
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,8 +91,200 @@ function CourseLessons({ course, onBack }) {
     order: null
   });
   const [formError, setFormError] = useState(null);
+  
+  // Ссылки на редакторы
+  const createEditorRef = useRef(null);
+  const editEditorRef = useRef(null);
+  
+  // Инициализация редактора для создания урока
+  useEffect(() => {
+    if (showCreateForm && !createEditorRef.current) {
+      initCreateEditor();
+    }
+    
+    return () => {
+      if (createEditorRef.current) {
+        createEditorRef.current.destroy();
+        createEditorRef.current = null;
+      }
+    };
+  }, [showCreateForm]);
+  
+  // Инициализация редактора для редактирования урока
+  useEffect(() => {
+    if (showEditForm && !editEditorRef.current) {
+      initEditEditor();
+    }
+    
+    return () => {
+      if (editEditorRef.current) {
+        editEditorRef.current.destroy();
+        editEditorRef.current = null;
+      }
+    };
+  }, [showEditForm]);
+  
+  /**
+   * Инициализация редактора для создания урока
+   */
+  const initCreateEditor = () => {
+    try {
+      // Проверяем, существует ли элемент для редактора
+      const editorElement = document.getElementById('create-editor');
+      if (!editorElement) return;
+      
+      // Создаем экземпляр редактора
+      createEditorRef.current = new EditorJS({
+        holder: 'create-editor',
+        placeholder: 'Начните вводить содержание урока...',
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            config: {
+              levels: [1, 2, 3, 4],
+              defaultLevel: 2
+            }
+          },
+          list: {
+            class: List,
+            inlineToolbar: true
+          },
+          code: {
+            class: Code,
+            config: {
+              placeholder: 'Вставьте код'
+            }
+          },
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true
+          },
+          marker: {
+            class: Marker,
+            shortcut: 'CMD+SHIFT+M'
+          },
+          inlineCode: {
+            class: InlineCode,
+            shortcut: 'CMD+SHIFT+C'
+          },
+          delimiter: Delimiter,
+          quote: {
+            class: Quote,
+            inlineToolbar: true
+          }
+        },
+        data: {
+          blocks: []
+        },
+        onChange: async () => {
+          try {
+            const savedData = await createEditorRef.current.save();
+            setNewLesson({
+              ...newLesson,
+              content: JSON.stringify(savedData)
+            });
+          } catch (err) {
+            console.error('Ошибка при сохранении данных редактора:', err);
+          }
+        }
+      });
+    } catch (err) {
+      console.error('Ошибка при инициализации редактора:', err);
+    }
+  };
+  
+  /**
+   * Инициализация редактора для редактирования урока
+   */
+  const initEditEditor = () => {
+    try {
+      // Проверяем, существует ли элемент для редактора
+      const editorElement = document.getElementById('edit-editor');
+      if (!editorElement) return;
+      
+      // Пытаемся распарсить существующий контент
+      let initialData = { blocks: [] };
+      if (editingLesson.content) {
+        try {
+          initialData = JSON.parse(editingLesson.content);
+        } catch (err) {
+          // Если контент не является JSON, создаем блок параграфа с этим текстом
+          initialData = {
+            blocks: [
+              {
+                type: 'paragraph',
+                data: {
+                  text: editingLesson.content
+                }
+              }
+            ]
+          };
+        }
+      }
+      
+      // Создаем экземпляр редактора
+      editEditorRef.current = new EditorJS({
+        holder: 'edit-editor',
+        placeholder: 'Начните вводить содержание урока...',
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            config: {
+              levels: [1, 2, 3, 4],
+              defaultLevel: 2
+            }
+          },
+          list: {
+            class: List,
+            inlineToolbar: true
+          },
+          code: {
+            class: Code,
+            config: {
+              placeholder: 'Вставьте код'
+            }
+          },
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true
+          },
+          marker: {
+            class: Marker,
+            shortcut: 'CMD+SHIFT+M'
+          },
+          inlineCode: {
+            class: InlineCode,
+            shortcut: 'CMD+SHIFT+C'
+          },
+          delimiter: Delimiter,
+          quote: {
+            class: Quote,
+            inlineToolbar: true
+          }
+        },
+        data: initialData,
+        onChange: async () => {
+          try {
+            const savedData = await editEditorRef.current.save();
+            setEditingLesson({
+              ...editingLesson,
+              content: JSON.stringify(savedData)
+            });
+          } catch (err) {
+            console.error('Ошибка при сохранении данных редактора:', err);
+          }
+        }
+      });
+    } catch (err) {
+      console.error('Ошибка при инициализации редактора:', err);
+    }
+  };
 
-  // Получение уроков курса при загрузке компонента
+  /**
+   * Получение уроков курса при загрузке компонента
+   */
   useEffect(() => {
     if (course && course.id) {
       fetchLessons(course.id);
@@ -117,9 +357,26 @@ function CourseLessons({ course, onBack }) {
     
     try {
       setLoading(true);
-      console.log(`Отправляем запрос на создание урока для курса ${course.id}:`, newLesson);
       
-      const response = await axios.post(`${API.LESSONS.BY_COURSE_ID(course.id)}`, newLesson, {
+      // Получаем данные из редактора
+      let lessonContent = newLesson.content;
+      if (createEditorRef.current) {
+        try {
+          const editorData = await createEditorRef.current.save();
+          lessonContent = JSON.stringify(editorData);
+        } catch (err) {
+          console.error('Ошибка при сохранении данных редактора:', err);
+        }
+      }
+      
+      const lessonToCreate = {
+        ...newLesson,
+        content: lessonContent
+      };
+      
+      console.log(`Отправляем запрос на создание урока для курса ${course.id}:`, lessonToCreate);
+      
+      const response = await axios.post(`${API.LESSONS.BY_COURSE_ID(course.id)}`, lessonToCreate, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -149,6 +406,12 @@ function CourseLessons({ course, onBack }) {
         order: null
       });
       setShowCreateForm(false);
+      
+      // Уничтожаем редактор
+      if (createEditorRef.current) {
+        createEditorRef.current.destroy();
+        createEditorRef.current = null;
+      }
     } catch (error) {
       console.error('Ошибка при создании урока:', error);
       setFormError(error.response?.data?.error || 'Не удалось создать урок. Пожалуйста, попробуйте позже.');
@@ -232,11 +495,23 @@ function CourseLessons({ course, onBack }) {
     
     try {
       setLoading(true);
+      
+      // Получаем данные из редактора
+      let lessonContent = editingLesson.content;
+      if (editEditorRef.current) {
+        try {
+          const editorData = await editEditorRef.current.save();
+          lessonContent = JSON.stringify(editorData);
+        } catch (err) {
+          console.error('Ошибка при сохранении данных редактора:', err);
+        }
+      }
+      
       // Создаем объект для отправки, исключая поля с undefined
       const lessonToUpdate = {
         id: editingLesson.id,
         title: editingLesson.title,
-        content: editingLesson.content || ''
+        content: lessonContent || ''
       };
       
       console.log(`Отправляем запрос на обновление урока ${editingLesson.id}:`, lessonToUpdate);
@@ -256,6 +531,12 @@ function CourseLessons({ course, onBack }) {
       ));
       
       setShowEditForm(false);
+      
+      // Уничтожаем редактор
+      if (editEditorRef.current) {
+        editEditorRef.current.destroy();
+        editEditorRef.current = null;
+      }
     } catch (error) {
       console.error('Ошибка при обновлении урока:', error);
       setFormError(error.response?.data?.error || 'Не удалось обновить урок. Пожалуйста, попробуйте позже.');
@@ -287,14 +568,7 @@ function CourseLessons({ course, onBack }) {
         </div>
         <div className="form-group">
           <label htmlFor="edit-content">Содержание урока</label>
-          <textarea
-            id="edit-content"
-            name="content"
-            value={editingLesson.content}
-            onChange={handleEditInputChange}
-            placeholder="Введите содержание урока"
-            rows="5"
-          />
+          <div id="edit-editor"></div>
         </div>
         <div className="form-actions">
           <button type="submit" className="primary-button" disabled={loading}>
@@ -337,14 +611,7 @@ function CourseLessons({ course, onBack }) {
 
         <div className="form-group">
           <label htmlFor="content">Содержание урока</label>
-          <textarea
-            id="content"
-            name="content"
-            value={newLesson.content}
-            onChange={handleInputChange}
-            rows="6"
-            placeholder="Введите содержание урока"
-          />
+          <div id="create-editor"></div>
         </div>
         <div className="form-group">
           <label htmlFor="order">Порядковый номер (необязательно)</label>
@@ -426,7 +693,7 @@ function CourseLessons({ course, onBack }) {
                   {lesson.title}
                 </div>
                 <div className="lesson-description">
-                  {truncateContent(lesson.content, 50)}
+                  {getContentPreview(lesson.content)}
                 </div>
                 <div className="lesson-actions">
                   <button 

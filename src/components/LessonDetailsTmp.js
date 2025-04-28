@@ -20,6 +20,8 @@ const LessonDetailsTmp = () => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [completionLoading, setCompletionLoading] = useState(false);
   const [activeTest, setActiveTest] = useState(null);
+  const [parsedContent, setParsedContent] = useState(null);
+  const [rawContent, setRawContent] = useState('');
 
   // Загрузка информации об уроке и тестах при монтировании компонента
   useEffect(() => {
@@ -37,6 +39,26 @@ const LessonDetailsTmp = () => {
         
         setLesson(lessonResponse.data);
         setCourseId(lessonResponse.data.courseId);
+        
+        // Пробуем распарсить контент урока, если он есть
+        if (lessonResponse.data.content) {
+          try {
+            // Проверяем, начинается ли контент с символа {, что может указывать на JSON
+            if (lessonResponse.data.content.trim().startsWith('{')) {
+              const contentData = JSON.parse(lessonResponse.data.content);
+              setParsedContent(contentData);
+            } else {
+              // Если контент не похож на JSON, используем его как обычный текст
+              setParsedContent(null);
+              setRawContent(lessonResponse.data.content);
+            }
+          } catch (err) {
+            console.error('Ошибка при парсинге контента урока:', err);
+            // Если не удалось распарсить JSON, используем контент как обычный HTML/текст
+            setParsedContent(null);
+            setRawContent(lessonResponse.data.content);
+          }
+        }
         
         // Проверяем, завершил ли пользователь урок
         try {
@@ -137,6 +159,82 @@ const LessonDetailsTmp = () => {
     navigate(`/tests/${testId}?token=${accessToken}`);
   };
 
+  /**
+   * Рендерит блоки контента Editor.js
+   * @param {Object} content - объект с данными Editor.js
+   * @returns {JSX.Element} - отрендеренный контент
+   */
+  const renderEditorContent = (content) => {
+    if (!content || !content.blocks || content.blocks.length === 0) {
+      return (
+        <div className="lesson-tmp-no-content">
+          <div className="lesson-tmp-no-content-icon">📝</div>
+          <p>Содержание урока отсутствует.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="lesson-tmp-editor-content">
+        {content.blocks.map((block, index) => {
+          switch (block.type) {
+            case 'header':
+              const HeaderTag = `h${block.data.level}`;
+              return (
+                <HeaderTag key={index} className="lesson-tmp-header-block"
+                   dangerouslySetInnerHTML={{ __html: block.data.text }} />
+              );
+              
+            case 'paragraph':
+              return (
+                <p key={index} className="lesson-tmp-paragraph-block" 
+                   dangerouslySetInnerHTML={{ __html: block.data.text }} />
+              );
+              
+            case 'list':
+              const ListTag = block.data.style === 'ordered' ? 'ol' : 'ul';
+              return (
+                <ListTag key={index} className="lesson-tmp-list-block">
+                  {block.data.items.map((item, i) => (
+                    <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
+                  ))}
+                </ListTag>
+              );
+              
+            case 'code':
+              return (
+                <div key={index} className="lesson-tmp-code-block">
+                  <pre>
+                    <code>{block.data.code}</code>
+                  </pre>
+                </div>
+              );
+              
+            case 'quote':
+              return (
+                <blockquote key={index} className="lesson-tmp-quote-block">
+                  <p dangerouslySetInnerHTML={{ __html: block.data.text }} />
+                  {block.data.caption && (
+                    <cite>{block.data.caption}</cite>
+                  )}
+                </blockquote>
+              );
+              
+            case 'delimiter':
+              return <hr key={index} className="lesson-tmp-delimiter" />;
+              
+            default:
+              return (
+                <div key={index} className="lesson-tmp-unknown-block">
+                  Неподдерживаемый тип блока: {block.type}
+                </div>
+              );
+          }
+        })}
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <>
@@ -192,13 +290,6 @@ const LessonDetailsTmp = () => {
             )}
             <div className="lesson-tmp-header-content">
               <h1 className="lesson-tmp-title">{lesson.title}</h1>
-              
-              {isCompleted && (
-                <div className="lesson-tmp-completed-badge">
-                  <span className="lesson-tmp-completed-icon">✓</span>
-                  <span>Урок завершен</span>
-                </div>
-              )}
             </div>
           </div>
 
@@ -210,8 +301,12 @@ const LessonDetailsTmp = () => {
                   Содержание урока
                 </h2>
                 
-                {lesson.content ? (
-                  <div className="lesson-tmp-content-text" dangerouslySetInnerHTML={{ __html: lesson.content }} />
+                {parsedContent ? (
+                  renderEditorContent(parsedContent)
+                ) : rawContent ? (
+                  <div className="lesson-tmp-raw-content">
+                    <div dangerouslySetInnerHTML={{ __html: rawContent }} />
+                  </div>
                 ) : (
                   <div className="lesson-tmp-no-content">
                     <div className="lesson-tmp-no-content-icon">📝</div>
@@ -271,20 +366,50 @@ const LessonDetailsTmp = () => {
                 <div className="lesson-tmp-sidebar-content">
                   <div className="lesson-tmp-sidebar-item">
                     <span className="lesson-tmp-sidebar-icon">📚</span>
-                    <span>Курс: {lesson.courseName || 'Не указан'}</span>
+                    <span>Курс: {lesson.courseTitle || 'Не указан'}</span>
                   </div>
+                  {lesson.orderNumber !== null && lesson.orderNumber !== undefined && (
+                    <div className="lesson-tmp-sidebar-item">
+                      <span className="lesson-tmp-sidebar-icon">🔢</span>
+                      <span>Урок №{lesson.orderNumber}</span>
+                    </div>
+                  )}
+                  {lesson.authorName && (
+                    <div className="lesson-tmp-sidebar-item">
+                      <span className="lesson-tmp-sidebar-icon">👨‍🏫</span>
+                      <span>Автор: {lesson.authorName}</span>
+                    </div>
+                  )}
                   {tests.length > 0 && (
                     <div className="lesson-tmp-sidebar-item">
                       <span className="lesson-tmp-sidebar-icon">✓</span>
                       <span>{tests.length} {getTestsWord(tests.length)}</span>
                     </div>
                   )}
-                  <div className="lesson-tmp-sidebar-item">
-                    <span className="lesson-tmp-sidebar-icon">
-                      {isCompleted ? '✅' : '⏳'}
-                    </span>
-                    <span>{isCompleted ? 'Урок завершен' : 'Урок не завершен'}</span>
-                  </div>
+                  {isCompleted && (
+                    <div className="lesson-tmp-sidebar-item lesson-tmp-completed-item">
+                      <span className="lesson-tmp-sidebar-icon">✅</span>
+                      <span>Урок завершен</span>
+                    </div>
+                  )}
+                  {!isCompleted && (
+                    <div className="lesson-tmp-sidebar-item">
+                      <span className="lesson-tmp-sidebar-icon">⏳</span>
+                      <span>Урок не завершен</span>
+                    </div>
+                  )}
+                  {lesson.createdAt && (
+                    <div className="lesson-tmp-sidebar-item">
+                      <span className="lesson-tmp-sidebar-icon">📅</span>
+                      <span>Создан: {new Date(lesson.createdAt).toLocaleDateString()}</span>
+                    </div>
+                  )}
+                  {lesson.updatedAt && lesson.updatedAt !== lesson.createdAt && (
+                    <div className="lesson-tmp-sidebar-item">
+                      <span className="lesson-tmp-sidebar-icon">🔄</span>
+                      <span>Обновлен: {new Date(lesson.updatedAt).toLocaleDateString()}</span>
+                    </div>
+                  )}
                 </div>
               </div>
               
