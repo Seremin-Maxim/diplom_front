@@ -288,8 +288,8 @@
 .lesson-form-container {
   background-color: #f9f9f9;
   border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 25px;
+  padding: 20px 0px 0px 0px;
+  /* margin-bottom: 25px; */
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 

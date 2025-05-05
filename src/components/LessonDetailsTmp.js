@@ -181,8 +181,9 @@ const LessonDetailsTmp = () => {
             case 'header':
               const HeaderTag = `h${block.data.level}`;
               return (
-                <HeaderTag key={index} className="lesson-tmp-header-block"
-                   dangerouslySetInnerHTML={{ __html: block.data.text }} />
+                <div key={index} className={`lesson-tmp-header-block lesson-tmp-header-${block.data.level}`}>
+                  <HeaderTag dangerouslySetInnerHTML={{ __html: block.data.text }} />
+                </div>
               );
               
             case 'paragraph':
@@ -192,12 +193,33 @@ const LessonDetailsTmp = () => {
               );
               
             case 'list':
-              const ListTag = block.data.style === 'ordered' ? 'ol' : 'ul';
+              const ListTag = block.data.style === 'ordered' ? 'ol' : 
+                             block.data.style === 'checklist' ? 'div' : 'ul';
+              
+              if (block.data.style === 'checklist') {
+                return (
+                  <div key={index} className="lesson-tmp-checklist-block">
+                    {block.data.items.map((item, i) => (
+                      <div key={i} className="lesson-tmp-checklist-item">
+                        <input 
+                          type="checkbox" 
+                          checked={item.meta?.checked || false} 
+                          readOnly 
+                        />
+                        <span dangerouslySetInnerHTML={{ __html: item.content }} />
+                      </div>
+                    ))}
+                  </div>
+                );
+              }
+              
               return (
                 <ListTag key={index} className="lesson-tmp-list-block">
-                  {block.data.items.map((item, i) => (
-                    <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
-                  ))}
+                  {block.data.items.map((item, i) => {
+                    // Проверяем, является ли элемент объектом или строкой
+                    const content = typeof item === 'object' ? item.content : item;
+                    return <li key={i} dangerouslySetInnerHTML={{ __html: content }} />;
+                  })}
                 </ListTag>
               );
               
@@ -205,8 +227,11 @@ const LessonDetailsTmp = () => {
               return (
                 <div key={index} className="lesson-tmp-code-block">
                   <pre>
-                    <code>{block.data.code}</code>
+                    <code dangerouslySetInnerHTML={{ __html: block.data.code }} />
                   </pre>
+                  {block.data.language && (
+                    <div className="lesson-tmp-code-language">{block.data.language}</div>
+                  )}
                 </div>
               );
               
@@ -215,13 +240,59 @@ const LessonDetailsTmp = () => {
                 <blockquote key={index} className="lesson-tmp-quote-block">
                   <p dangerouslySetInnerHTML={{ __html: block.data.text }} />
                   {block.data.caption && (
-                    <cite>{block.data.caption}</cite>
+                    <cite dangerouslySetInnerHTML={{ __html: block.data.caption }} />
                   )}
                 </blockquote>
               );
               
             case 'delimiter':
               return <hr key={index} className="lesson-tmp-delimiter" />;
+              
+            case 'table':
+              return (
+                <div key={index} className="lesson-tmp-table-wrapper">
+                  <table className="lesson-tmp-table">
+                    {block.data.withHeadings && block.data.content && block.data.content.length > 0 && (
+                      <thead>
+                        <tr>
+                          {block.data.content[0].map((cell, cellIndex) => (
+                            <th key={cellIndex} dangerouslySetInnerHTML={{ __html: cell }} />
+                          ))}
+                        </tr>
+                      </thead>
+                    )}
+                    <tbody>
+                      {block.data.content.map((row, rowIndex) => {
+                        // Пропускаем первую строку, если она заголовок
+                        if (block.data.withHeadings && rowIndex === 0) return null;
+                        
+                        return (
+                          <tr key={rowIndex}>
+                            {row.map((cell, cellIndex) => (
+                              <td key={cellIndex} dangerouslySetInnerHTML={{ __html: cell }} />
+                            ))}
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              );
+              
+            case 'image':
+              return (
+                <figure key={index} className="lesson-tmp-image-block">
+                  <img 
+                    src={block.data.file?.url || block.data.url} 
+                    alt={block.data.caption || 'Изображение'} 
+                    className="lesson-tmp-image"
+                  />
+                  {block.data.caption && (
+                    <figcaption className="lesson-tmp-image-caption" 
+                      dangerouslySetInnerHTML={{ __html: block.data.caption }} />
+                  )}
+                </figure>
+              );
               
             default:
               return (

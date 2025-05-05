@@ -15,6 +15,93 @@ import InlineCode from '@editorjs/inline-code';
 import Delimiter from '@editorjs/delimiter';
 import Quote from '@editorjs/quote';
 
+// Определяем заглушки для дополнительных плагинов, которые будем использовать
+// Это позволит нам добавить функциональность без установки пакетов
+// и сохранить обратную совместимость
+
+// Плагин для таблиц
+const Table = {
+  render: ({ data }) => {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('lesson-editor-table-wrapper');
+    
+    const table = document.createElement('table');
+    table.classList.add('lesson-editor-table');
+    
+    if (data.withHeadings && data.content && data.content.length > 0) {
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      
+      data.content[0].forEach(cell => {
+        const th = document.createElement('th');
+        th.innerHTML = cell || '';
+        headerRow.appendChild(th);
+      });
+      
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+    }
+    
+    const tbody = document.createElement('tbody');
+    
+    if (data.content) {
+      const startRow = data.withHeadings ? 1 : 0;
+      
+      for (let i = startRow; i < data.content.length; i++) {
+        const row = document.createElement('tr');
+        
+        data.content[i].forEach(cell => {
+          const td = document.createElement('td');
+          td.innerHTML = cell || '';
+          row.appendChild(td);
+        });
+        
+        tbody.appendChild(row);
+      }
+    }
+    
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    
+    return wrapper;
+  },
+  
+  save: (blockContent) => {
+    const table = blockContent.querySelector('table');
+    const data = {
+      withHeadings: !!table.querySelector('thead'),
+      content: []
+    };
+    
+    // Получаем заголовки, если они есть
+    const thead = table.querySelector('thead');
+    if (thead) {
+      const headerCells = Array.from(thead.querySelectorAll('th')).map(th => th.innerHTML);
+      data.content.push(headerCells);
+    }
+    
+    // Получаем строки таблицы
+    const rows = table.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      const rowData = Array.from(row.querySelectorAll('td')).map(td => td.innerHTML);
+      data.content.push(rowData);
+    });
+    
+    return data;
+  },
+  
+  create: () => {
+    return {
+      withHeadings: true,
+      content: [
+        ['Заголовок 1', 'Заголовок 2', 'Заголовок 3'],
+        ['Ячейка 1-1', 'Ячейка 1-2', 'Ячейка 1-3'],
+        ['Ячейка 2-1', 'Ячейка 2-2', 'Ячейка 2-3']
+      ]
+    };
+  }
+};
+
 /**
  * Компонент для отображения уроков курса
  * @param {Object} props - свойства компонента
@@ -142,13 +229,23 @@ function CourseLessons({ course, onBack }) {
             class: Header,
             inlineToolbar: true,
             config: {
-              levels: [1, 2, 3, 4],
+              levels: [1, 2, 3, 4, 5, 6],
               defaultLevel: 2
             }
           },
           list: {
             class: List,
-            inlineToolbar: true
+            inlineToolbar: true,
+            config: {
+              defaultStyle: 'unordered'
+            }
+          },
+          checklist: {
+            class: List,
+            inlineToolbar: true,
+            config: {
+              defaultStyle: 'checklist'
+            }
           },
           code: {
             class: Code,
@@ -172,6 +269,15 @@ function CourseLessons({ course, onBack }) {
           quote: {
             class: Quote,
             inlineToolbar: true
+          },
+          table: {
+            class: Table,
+            inlineToolbar: true,
+            config: {
+              rows: 2,
+              cols: 3,
+              withHeadings: true
+            }
           }
         },
         data: {
@@ -232,13 +338,23 @@ function CourseLessons({ course, onBack }) {
             class: Header,
             inlineToolbar: true,
             config: {
-              levels: [1, 2, 3, 4],
+              levels: [1, 2, 3, 4, 5, 6],
               defaultLevel: 2
             }
           },
           list: {
             class: List,
-            inlineToolbar: true
+            inlineToolbar: true,
+            config: {
+              defaultStyle: 'unordered'
+            }
+          },
+          checklist: {
+            class: List,
+            inlineToolbar: true,
+            config: {
+              defaultStyle: 'checklist'
+            }
           },
           code: {
             class: Code,

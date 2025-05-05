@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API } from '../config/api';
@@ -9,6 +9,16 @@ import './TestDetailsTmp.css';
  * Улучшенный компонент для отображения теста с вопросами и возможностью отправки ответов
  */
 const TestDetailsTmp = () => {
+  // Функция для перемешивания массива (алгоритм Фишера-Йейтса)
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+  
   const { testId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,6 +37,7 @@ const TestDetailsTmp = () => {
   const [result, setResult] = useState(null);
   const [activeQuestion, setActiveQuestion] = useState(null);
   const [lessonInfo, setLessonInfo] = useState(null);
+  const [shuffledAnswers, setShuffledAnswers] = useState({});
   
   // Загрузка информации о тесте и вопросах при монтировании компонента
   useEffect(() => {
@@ -110,17 +121,29 @@ const TestDetailsTmp = () => {
         
         // Инициализируем объект ответов
         const initialAnswers = {};
+        // Инициализируем перемешанные ответы
+        const initialShuffledAnswers = {};
+        
         questionsWithAnswers.forEach(question => {
           if (question.type === 'SINGLE_CHOICE') {
             initialAnswers[question.id] = null;
+            // Перемешиваем варианты ответов
+            if (question.answers && question.answers.length > 0) {
+              initialShuffledAnswers[question.id] = shuffleArray([...question.answers]);
+            }
           } else if (question.type === 'MULTIPLE_CHOICE') {
             initialAnswers[question.id] = [];
+            // Перемешиваем варианты ответов
+            if (question.answers && question.answers.length > 0) {
+              initialShuffledAnswers[question.id] = shuffleArray([...question.answers]);
+            }
           } else if (question.type === 'TEXT') {
             initialAnswers[question.id] = '';
           }
         });
         
         setAnswers(initialAnswers);
+        setShuffledAnswers(initialShuffledAnswers);
         
         // Устанавливаем первый вопрос как активный
         if (questionsWithAnswers.length > 0) {
@@ -463,7 +486,7 @@ const TestDetailsTmp = () => {
                   <div className="test-tmp-answers-container">
                     {activeQuestionData.type === 'SINGLE_CHOICE' && activeQuestionData.answers && (
                       <div className="test-tmp-single-choice">
-                        {activeQuestionData.answers.map(answer => (
+                        {(shuffledAnswers[activeQuestionData.id] || activeQuestionData.answers).map(answer => (
                           <label key={answer.id} className={`test-tmp-answer-option ${answers[activeQuestionData.id] === answer.id ? 'selected' : ''}`}>
                             <input
                               type="radio"
@@ -481,7 +504,7 @@ const TestDetailsTmp = () => {
                     
                     {activeQuestionData.type === 'MULTIPLE_CHOICE' && activeQuestionData.answers && (
                       <div className="test-tmp-multiple-choice">
-                        {activeQuestionData.answers.map(answer => (
+                        {(shuffledAnswers[activeQuestionData.id] || activeQuestionData.answers).map(answer => (
                           <label key={answer.id} className={`test-tmp-answer-option ${answers[activeQuestionData.id]?.includes(answer.id) ? 'selected' : ''}`}>
                             <input
                               type="checkbox"
